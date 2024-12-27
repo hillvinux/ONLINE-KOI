@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide des Variétés de Koïs</title>
+    <style>
+        :root {
+            --koi-red: #ff3b30;
+            --koi-black: #1c1c1e;
+            --koi-white: #ffffff;
+            --light-gray: #f5f5f7;
+            --accent-red: #ff6b6b;
+            --text-gray: #86868b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: var(--koi-black);
+            background-color: var(--light-gray);
+        }
+
+        /* Header Styles */
+        .main-header {
+            background: var(--koi-black);
+            color: var(--koi-white);
+            padding: 2rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .main-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .main-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            animation: fadeInUp 1s ease-out 0.2s backwards;
+        }
+
+        /* Navigation */
+        .category-nav {
+            background: var(--koi-white);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .nav-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-button {
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            border: none;
+            border-radius: 20px;
+            background: var(--light-gray);
+            color: var(--koi-black);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .category-button:hover,
+        .category-button.active {
+            background: var(--koi-red);
+            color: var(--koi-white);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Koi Variety Card */
+        .koi-variety {
+            background: var(--koi-white);
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .koi-variety:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+
+        .koi-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .koi-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .koi-text {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .koi-category {
+            color: var(--koi-red);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .koi-variety h2 {
+            color: var(--koi-black);
+            font-size: 2rem;
+            border-bottom: 2px solid var(--light-gray);
+            padding-bottom: 0.5rem;
+        }
+
+        .characteristics {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+
+        .characteristics h3 {
+            color: var(--koi-red);
+            margin-bottom: 1rem;
+        }
+
+        .characteristics ul {
+            list-style-type: none;
+        }
+
+        .characteristics li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .characteristics li::before {
+            content: "•";
+            color: var(--koi-red);
+            position: absolute;
+            left: 0;
+        }
+
+        .koi-image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .koi-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .koi-image:hover {
+            transform: scale(1.05);
+        }
+
+        .image-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: var(--koi-white);
+            padding: 0.5rem;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .container {
+                padding: 0 15px;
+            }
+            
+            .koi-variety {
+                margin: 1rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<header class="main-header">
+        <div class="header-content">
+            <h1>L'Art des Koïs</h1>
+            <p>Découvrez l'univers fascinant des carpes koïs japonaises à travers leurs variétés emblématiques</p>
+        </div>
+    </header>
+
+    <nav class="category-nav">
+        <div class="nav-container">
+            <button class="category-button active" data-category="all">Toutes les variétés</button>
+            <button class="category-button" data-category="gosanke">Go-Sanke</button>
+            <button class="category-button" data-category="metallic">Métalliques</button>
+            <button class="category-button" data-category="unicolor">Unicolores</button>
+            <button class="category-button" data-category="special">Spéciales</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Section Go-Sanke -->
+        <section class="koi-variety" data-category="gosanke">
+            <div class="koi-content">
+                <div class="koi-text">
+                    <span class="koi-category">Go-Sanke Premium</span>
+                    <h2>Kohaku</h2>
+                    <p>Le Kohaku, considéré comme la "reine" des koïs, incarne l'élégance à travers sa simplicité : un corps blanc immaculé orné de motifs rouges vifs. Cette variété emblématique est souvent considérée comme la pierre angulaire de l'appréciation des koïs.</p>
+                    
+                    <div class="characteristics">
+                        <h3>Caractéristiques distinctives</h3>
+                        <ul>
+                            <li>Corps blanc pur (shiro) comme neige</li>
+                            <li>Motifs rouges (hi) profonds et bien définis</li>
+                            <li>Pas de noir ni d'autres couleurs</li>
+                            <li>Bordures nettes entre blanc et rouge</li>
+                            <li>Symétrie et équilibre des motifs</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="koi-image-container">
+                    <!-- Espace pour l'image du Kohaku -->
+                    <img src="images/kohaku.jpg" alt="Carpe Koï Kohaku" class="koi-image">
+                    <p class="image-caption">Kohaku classique avec motifs rouges équilibrés</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="koi-variety" data-category="gosanke">
+            <div class="koi-content">
+                <div class="koi-text">
+                    <span class="koi-category">Go-Sanke Premium</span>
+                    <h2>Taisho Sanke</h2>
+                    <p>Le Taisho Sanke ajoute une dimension supplémentaire au Kohaku avec ses élégantes marques noires. Cette variété tricolore représente un parfait équilibre entre le blanc, le rouge et le noir.</p>
+                    
+                    <div class="characteristics">
+                        <h3>Caractéristiques distinctives</h3>
+                        <ul>
+                            <li>Base blanche pure comme le Kohaku</li>
+                            <li>Motifs rouges similaires au Kohaku</li>
+                            <li>Marques noires (sumi) sur le dos uniquement</li>
+                            <li>Le noir ne doit pas apparaître sur la tête</li>
+                            <li>Les trois couleurs doivent être en parfaite harmonie</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="koi-image-container">
+                    <!-- Espace pour l'image du Sanke -->
+                    <img src="images/sanke.jpg" alt="Carpe Koï Taisho Sanke" class="koi-image">
+                    <p class="image-caption">Taisho Sanke montrant l'harmonie des trois couleurs</p>
+                </div>
+            </div>
+        </section>
+<section class="koi-variety" data-category="gosanke">
+            <div class="koi-content">
+                <div class="koi-text">
+                    <span class="koi-category">Go-Sanke Premium</span>
+                    <h2>Showa Sanshoku</h2>
+                    <p>Le Showa Sanshoku complète le trio Go-Sanke avec une approche unique : une base noire ornée de motifs rouges et blancs. Cette variété impressionnante se distingue par ses motifs complexes et dynamiques.</p>
+                    
+                    <div class="characteristics">
+                        <h3>Caractéristiques distinctives</h3>
+                        <ul>
+                            <li>Base noire profonde (sumi)</li>
+                            <li>Motifs blancs et rouges s'entremêlant</li>
+                            <li>Le noir peut et doit apparaître sur la tête</li>
+                            <li>Motifs wraparound (qui s'enroulent autour du corps)</li>
+                            <li>Équilibre complexe entre les trois couleurs</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="koi-image-container">
+                    <!-- Espace pour l'image du Showa -->
+                    <img src="images/showa.jpg" alt="Carpe Koï Showa Sanshoku" class="koi-image">
+                    <p class="image-caption">Showa montrant ses motifs complexes caractéristiques</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Métalliques -->
+        <section class="koi-variety" data-category="metallic">
+            <div class="koi-content">
+                <div class="koi-text">
+                    <span class="koi-category">Variétés Métalliques</span>
+                    <h2>Ogon</h2>
+                    <p>Les Ogon sont des koïs métalliques monochromes qui brillent comme des joyaux dans l'eau. Leur corps entièrement recouvert d'écailles brillantes crée un effet spectaculaire, particulièrement sous la lumière du soleil.</p>
+                    
+                    <div class="characteristics">
+                        <h3>Sous-variétés principales</h3>
+                        <ul>
+                            <li>Platinum Ogon : blanc métallique éblouissant</li>
+                            <li>Yamabuki Ogon : doré métallique intense</li>
+                            <li>Kin Matsuba Ogon : doré avec motif "pomme de pin"</li>
+                            <li>Gin Matsuba Ogon : argenté avec motif "pomme de pin"</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="koi-image-container">
+                    <!-- Espace pour l'image de l'Ogon -->
+                    <img src="images/ogon.jpg" alt="Carpe Koï Ogon" class="koi-image">
+                    <p class="image-caption">Platinum Ogon montrant son éclat métallique</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="koi-variety" data-category="metallic">
+            <div class="koi-content">
+                <div class="koi-text">
+                    <span class="koi-category">Variétés Métalliques</span>
+                    <h2>Gin Rin</h2>
+                    <p>Le Gin Rin n'est pas une variété en soi mais une caractéristique spéciale des écailles qui peuvent apparaître sur presque toutes les variétés. Ces écailles brillantes créent un effet scintillant unique.</p>
+                    
+                    <div class="characteristics">
+                        <h3>Types d'écailles Gin Rin</h3>
+                        <ul>
+                            <li>Diamond Gin Rin : brillance au centre de l'écaille</li>
+                            <li>Pearl Gin Rin : brillance sur toute l'écaille</li>
+                            <li>Beta Gin Rin : effet métallique plus subtil</li>
+                            <li>Peut se combiner avec la plupart des variétés</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="koi-image-container">
+                    <!-- Espace pour l'image du Gin Rin -->
+                    <img src="images/ginrin.jpg" alt="Carpe Koï Gin Rin" class="koi-image">
+                    <p class="image-caption">Kohaku Gin Rin montrant ses écailles scintillantes</p>
+                </div>
+            </div>
+        </section>
+<section class="koi-variety" data-category="metallic">
+            <div class="koi-content">
+                <div class="koi-text">
+                    <span class="koi-category">Variétés Métalliques</span>
+                    <h2>Kikokuryu</h2>
+                    <p>Le Kikokuryu est une variété spectaculaire qui combine une base sombre avec des écailles métalliques argentées. Ces koïs sont connus pour leur capacité à changer d'apparence selon les saisons et les conditions de l'eau.</p>
+                    
+                    <div class="characteristics">
+                        <h3>Caractéristiques uniques</h3>
+                        <ul>
+                            <li>Base noire/bleue profonde</li>
+                            <li>Écailles métalliques argentées brillantes</li>
+                            <li>Motifs changeants et dynamiques</li>
+                            <li>Peut développer des reflets violets</li>
+                            <li>Version Kin (dorée) également disponible</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="koi-image-container">
+                    <!-- Espace pour l'image du Kikokuryu -->
+                    <img src="images/kikokuryu.jpg" alt="Carpe Koï Kikokuryu" class="koi-image">
+                    <p class="image-caption">Kikokuryu montrant ses écailles métalliques sur fond sombre</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="koi-variety" data-category="metallic">
+            <div class="koi-content">
+                <div class="koi-text">
+                    <span class="koi-category">Variétés Métalliques</span>
+                    <h2>Hariwake</h2>
+                    <p>Le Hariwake est une variété métallique bicolore qui combine généralement le blanc platine et le jaune doré. Ces koïs créent un contraste saisissant avec leurs motifs métalliques brillants.</p>
+                    
+                    <div class="characteristics">
+                        <h3>Points clés</h3>
+                        <ul>
+                            <li>Base métallique blanche (platine)</li>
+                            <li>Motifs dorés brillants</li>
+                            <li>Existe aussi en version Gin Rin</li>
+                            <li>Motifs nets et bien définis</li>
+                            <li>Parfois avec des reflets orangés</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="koi-image-container">
+                    <!-- Espace pour l'image du Hariwake -->
+                    <img src="images/hariwake.jpg" alt="Carpe Koï Hariwake" class="koi-image">
+                    <p class="image-caption">Hariwake affichant son contraste métallique distinctif</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Unicolores -->
+        <section class="koi-variety" data-category="unicolor">
+            <div class="koi-content">
+                <div class="koi-text">
+                    <span class="koi-category">Variétés Unicolores</span>
+                    <h2>Chagoi</h2>
+                    <p>Le Chagoi, ou "poisson thé", est reconnu non seulement pour sa belle couleur marron uniforme mais aussi pour sa personnalité docile. C'est souvent le premier poisson à s'apprivoiser dans un bassin.</p>
+                    
+                    <div class="characteristics">
+                        <h3>Atouts principaux</h3>
+                        <ul>
+                            <li>Couleur marron chaude uniforme</li>
+                            <li>Croissance rapide et forte constitution</li>
+                            <li>Tempérament très sociable</li>
+                            <li>Excellent pour apprivoiser les autres koïs</li>
+                            <li>Peut atteindre de grandes tailles</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="koi-image-container">
+                    <!-- Espace pour l'image du Chagoi -->
+                    <img src="images/chagoi.jpg" alt="Carpe Koï Chagoi" class="koi-image">
+                    <p class="image-caption">Chagoi montrant sa belle couleur marron uniforme</p>
+                </div>
+            </div>
+        </section>
+<section class="koi-variety" data-category="unicolor">
+            <div class="koi-content">
+                <div class="koi-text">
+                    <span class="koi-category">Variétés Unicolores</span>
+                    <h2>Kigoi</h2>
+                    <p>Le Kigoi est un koï jaune vif qui apporte une touche de soleil dans le bassin. Cette variété se distingue par sa couleur uniforme et lumineuse qui peut varier du jaune clair au jaune intense.</p>
+                    
+                    <div class="characteristics">
+                        <h3>Caractéristiques principales</h3>
+                        <ul>
+                            <li>Jaune uniforme sur tout le corps</li>
+                            <li>Couleur stable qui ne change pas avec l'âge</li>
+                            <li>Peut avoir différentes intensités de jaune</li>
+                            <li>Personnalité souvent vive et active</li>
+                            <li>Excellent contraste avec les variétés sombres</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="koi-image-container">
+                    <!-- Espace pour l'image du Kigoi -->
+                    <img src="images/kigoi.jpg" alt="Carpe Koï Kigoi" class="koi-image">
+                    <p class="image-caption">Kigoi montrant sa belle couleur jaune uniforme</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="koi-variety" data-category="unicolor">
+            <div class="koi-content">
+                <div class="koi-text">
+                    <span class="koi-category">Variétés Unicolores</span>
+                    <h2>Benigoi</h2>
+                    <p>Le Benigoi est un koï entièrement rouge qui apporte une touche de passion dans le bassin. Cette variété monochrome présente une intensité de rouge remarquable sur l'ensemble du corps.</p>
+                    
+                    <div class="characteristics">
+                        <h3>Points distinctifs</h3>
+                        <ul>
+                            <li>Rouge profond uniforme</li>
+                            <li>Couleur intense et stable</li>
+                            <li>Aucune marque ou tache d'autre couleur</li>
+                            <li>Peut avoir des variations dans l'intensité du rouge</li>
+                            <li>Très apprécié pour sa simplicité</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="koi-image-container">
+                    <!-- Espace pour l'image du Benigoi -->
+                    <img src="images/benigoi.jpg" alt="Carpe Koï Benigoi" class="koi-image">
+                    <p class="image-caption">Benigoi affichant son rouge profond caractéristique</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="koi-variety" data-category="special">
+            <div class="koi-content">
+                <div class="koi-text">
+                    <span class="koi-category">Variétés Spéciales</span>
+                    <h2>Tancho</h2>
+                    <p>Le Tancho est une variété très prisée, nommée d'après la grue japonaise à couronne rouge. Sa caractéristique unique est une marque rouge circulaire parfaite sur la tête.</p>
+                    
+                    <div class="characteristics">
+                        <h3>Variations de Tancho</h3>
+                        <ul>
+                            <li>Tancho Kohaku : corps blanc, point rouge sur la tête</li>
+                            <li>Tancho Sanke : comme le Kohaku avec des marques noires</li>
+                            <li>Tancho Showa : base noire avec point rouge sur la tête</li>
+                            <li>Le point rouge doit être rond et centré</li>
+                            <li>Très valorisé dans les concours</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="koi-image-container">
+                    <!-- Espace pour l'image du Tancho -->
+                    <img src="images/tancho.jpg" alt="Carpe Koï Tancho" class="koi-image">
+                    <p class="image-caption">Tancho avec sa marque rouge caractéristique sur la tête</p>
+                </div>
+            </div>
+        </section>
+<section class="koi-variety" data-category="special">
+            <div class="koi-content">
+                <div class="koi-text">
+                    <span class="koi-category">Variétés Spéciales</span>
+                    <h2>Asagi</h2>
+                    <p>L'Asagi est l'une des plus anciennes variétés de koïs. Son motif d'écailles bleu-gris caractéristique sur le dos et ses flancs rouges en font une variété unique et très appréciée des puristes.</p>
+                    
+                    <div class="characteristics">
+                        <h3>Caractéristiques distinctives</h3>
+                        <ul>
+                            <li>Motif d'écailles bleu net en "filet"</li>
+                            <li>Rouge sur les flancs et les joues</li>
+                            <li>Le bleu doit être uniforme sur le dos</li>
+                            <li>Ligne de démarcation nette entre bleu et rouge</li>
+                            <li>Ventre blanc immaculé</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="koi-image-container">
+                    <!-- Espace pour l'image de l'Asagi -->
+                    <img src="images/asagi.jpg" alt="Carpe Koï Asagi" class="koi-image">
+                    <p class="image-caption">Asagi montrant son motif d'écailles bleu caractéristique</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="koi-variety" data-category="special">
+            <div class="koi-content">
+                <div class="koi-text">
+                    <span class="koi-category">Variétés Spéciales</span>
+                    <h2>Shusui</h2>
+                    <p>Le Shusui est une version "écailles miroir" de l'Asagi, créée en 1910. Cette variété élégante se caractérise par sa ligne d'écailles bleues le long du dos et sa peau douce presque sans écailles.</p>
+                    
+                    <div class="characteristics">
+                        <h3>Points clés</h3>
+                        <ul>
+                            <li>Une seule rangée d'écailles bleues dorsales</li>
+                            <li>Corps principalement sans écailles</li>
+                            <li>Flancs rouges ou orangés</li>
+                            <li>Peau lisse et brillante</li>
+                            <li>Aspect plus délicat que l'Asagi</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="koi-image-container">
+                    <!-- Espace pour l'image du Shusui -->
+                    <img src="images/shusui.jpg" alt="Carpe Koï Shusui" class="koi-image">
+                    <p class="image-caption">Shusui montrant sa ligne dorsale caractéristique</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="koi-variety" data-category="special">
+            <div class="koi-content">
+                <div class="koi-text">
+                    <span class="koi-category">Variétés Spéciales</span>
+                    <h2>Goshiki</h2>
+                    <p>Le Goshiki, qui signifie "cinq couleurs" en japonais, est une variété complexe qui mélange plusieurs teintes. Il est considéré comme une fusion entre l'Asagi et le Sanke.</p>
+                    
+                    <div class="characteristics">
+                        <h3>Les cinq couleurs traditionnelles</h3>
+                        <ul>
+                            <li>Blanc (shiro) comme base</li>
+                            <li>Rouge (hi) sur les motifs</li>
+                            <li>Bleu foncé (ai) sur les écailles</li>
+                            <li>Noir (sumi) dans les motifs profonds</li>
+                            <li>Violet (beni) dans certaines zones</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="koi-image-container">
+                    <!-- Espace pour l'image du Goshiki -->
+                    <img src="images/goshiki.jpg" alt="Carpe Koï Goshiki" class="koi-image">
+                    <p class="image-caption">Goshiki montrant son mélange unique de couleurs</p>
+                </div>
+            </div>
+        </section>
+<section class="koi-variety" data-category="special">
+            <div class="koi-content">
+                <div class="koi-text">
+                    <span class="koi-category">Variétés Spéciales</span>
+                    <h2>Ochiba Shigure</h2>
+                    <p>L'Ochiba Shigure, qui signifie "feuilles mortes d'automne sous la pluie", est une variété qui évoque les couleurs automnales. Son mélange unique de gris et de brun rappelle les feuilles tombées.</p>
+                    
+                    <div class="characteristics">
+                        <h3>Caractéristiques uniques</h3>
+                        <ul>
+                            <li>Base gris-bleu délicate</li>
+                            <li>Motifs bruns rappelant les feuilles mortes</li>
+                            <li>Effet de profondeur particulier</li>
+                            <li>Couleurs changeantes selon la lumière</li>
+                            <li>Très apprécié pour son aspect naturel</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="koi-image-container">
+                    <!-- Espace pour l'image de l'Ochiba -->
+                    <img src="images/ochiba.jpg" alt="Carpe Koï Ochiba Shigure" class="koi-image">
+                    <p class="image-caption">Ochiba Shigure aux couleurs automnales</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="koi-variety" data-category="unicolor">
+            <div class="koi-content">
+                <div class="koi-text">
+                    <span class="koi-category">Variétés Unicolores</span>
+                    <h2>Karasugoi</h2>
+                    <p>Le Karasugoi, ou "koï corbeau", est caractérisé par sa couleur noire profonde. Cette variété élégante apporte une présence majestueuse dans le bassin.</p>
+                    
+                    <div class="characteristics">
+                        <h3>Points distinctifs</h3>
+                        <ul>
+                            <li>Noir profond uniforme</li>
+                            <li>Peut avoir des reflets bleutés</li>
+                            <li>Qualité du noir importante</li>
+                            <li>Souvent de grande taille</li>
+                            <li>Excellent contraste avec les variétés claires</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="koi-image-container">
+                    <!-- Espace pour l'image du Karasugoi -->
+                    <img src="images/karasugoi.jpg" alt="Carpe Koï Karasugoi" class="koi-image">
+                    <p class="image-caption">Karasugoi montrant son noir profond</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="koi-variety" data-category="special">
+            <div class="koi-content">
+                <div class="koi-text">
+                    <span class="koi-category">Variétés Spéciales</span>
+                    <h2>Kikushui</h2>
+                    <p>Le Kikushui est une variété particulière qui combine des éléments de plusieurs autres variétés. Son nom signifie "eau de chrysanthème", évoquant la complexité de ses motifs.</p>
+                    
+                    <div class="characteristics">
+                        <h3>Caractéristiques principales</h3>
+                        <ul>
+                            <li>Motifs complexes et variés</li>
+                            <li>Mélange de plusieurs couleurs</li>
+                            <li>Écailles souvent métalliques</li>
+                            <li>Apparence changeante selon l'angle</li>
+                            <li>Chaque spécimen est unique</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="koi-image-container">
+                    <!-- Espace pour l'image du Kikushui -->
+                    <img src="images/kikushui.jpg" alt="Carpe Koï Kikushui" class="koi-image">
+                    <p class="image-caption">Kikushui montrant ses motifs complexes</p>
+                </div>
+            </div>
+        </section>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Récupérer tous les boutons de catégorie et les variétés
+            const categoryButtons = document.querySelectorAll('.category-button');
+            const varieties = document.querySelectorAll('.koi-variety');
+            
+            // Fonction pour filtrer les variétés
+            function filterVarieties(category) {
+                varieties.forEach(variety => {
+                    if (category === 'all' || variety.dataset.category === category) {
+                        variety.style.display = 'block';
+                        // Animation de fade in
+                        variety.style.opacity = '0';
+                        variety.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            variety.style.opacity = '1';
+                            variety.style.transform = 'translateY(0)';
+                        }, 50);
+                    } else {
+                        variety.style.display = 'none';
+                    }
+                });
+            }
+
+            // Ajouter les événements click aux boutons
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Retirer la classe active de tous les boutons
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    // Ajouter la classe active au bouton cliqué
+                    this.classList.add('active');
+                    // Filtrer les variétés
+                    filterVarieties(this.dataset.category);
+                });
+            });
+
+            // Animation au défilement
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Observer chaque variété pour l'animation au défilement
+            varieties.forEach(variety => {
+                variety.style.opacity = '0';
+                variety.style.transform = 'translateY(20px)';
+                variety.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(variety);
+            });
+
+            // Animation des boutons de navigation
+            categoryButtons.forEach((button, index) => {
+                button.style.animation = `fadeInUp 0.5s ease ${index * 0.1}s backwards`;
+            });
+
+            // Gestion du sticky header
+            const nav = document.querySelector('.category-nav');
+            let lastScroll = 0;
+
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.pageYOffset;
+                
+                if (currentScroll <= 0) {
+                    nav.classList.remove('scroll-up');
+                }
+                
+                if (currentScroll > lastScroll && !nav.classList.contains('scroll-down')) {
+                    nav.classList.remove('scroll-up');
+                    nav.classList.add('scroll-down');
+                }
+                
+                if (currentScroll < lastScroll && nav.classList.contains('scroll-down')) {
+                    nav.classList.remove('scroll-down');
+                    nav.classList.add('scroll-up');
+                }
+                
+                lastScroll = currentScroll;
+            });
+        });
+    </script>
+</body>
+</html> 
+
+
+Dimensions : 800x600 pixels (ou ratio similaire)
+Format : JPG ou PNG
+Taille de fichier : moins de 500KB par image
+À placer dans le dossier "images/" du projet
+
+Liste des photos à trouver :
+
+koi-introduction.jpg (photo d'en-tête avec plusieurs koïs)
+kohaku.jpg (koï blanc avec motifs rouges)
+sanke.jpg (koï blanc avec motifs rouges et noirs)
+showa.jpg (koï à base noire avec rouge et blanc)
+ogon.jpg (koï métallique monochrome)
+ginrin.jpg (koï avec écailles brillantes)
+kikokuryu.jpg (koï métallique à base sombre)
+hariwake.jpg (koï métallique bicolore blanc/doré)
+chagoi.jpg (koï marron uni)
+kigoi.jpg (koï jaune)
+benigoi.jpg (koï rouge uni)
+tancho.jpg (koï avec point rouge sur la tête)
+asagi.jpg (koï avec écailles bleues et flancs rouges)
+shusui.jpg (koï "miroir" avec ligne d'écailles)
+goshiki.jpg (koï "cinq couleurs")
+ochiba.jpg (koï gris-brun automnal)
+karasugoi.jpg (koï noir)
+kikushui.jpg (koï aux motifs complexes)
